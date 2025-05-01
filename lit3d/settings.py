@@ -55,6 +55,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 ROOT_URLCONF = 'lit3d.urls'
 
 TEMPLATES = [
@@ -86,10 +95,19 @@ DATABASES = {
         'NAME': 'lit3d',
         'USER': 'lit3d',
         'PASSWORD': 'sUQsDjYLDPVaE6Lf8cbpssJx',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': 'db',
+        'PORT': '5432',
     }
 }
+
+# Test database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'mydatabase.db', # This is where you put the name of the db file. 
+#             # If one doesn't exist, it will be created at migration time.
+#     }
+# }
 
 
 # Password validation
@@ -127,10 +145,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-# Правильные настройки static-файлов
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/lit3d')]  # Папка с исходными файлами
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')     # Для collectstatic (на сервере)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -138,4 +157,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')     # Для collectstatic (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

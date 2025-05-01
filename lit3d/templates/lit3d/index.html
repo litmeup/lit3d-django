@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html class="page" lang="ru">
 
@@ -16,14 +18,14 @@
 ▪ Оригинальные павильоны, стенды
 ▪ Индивидуальные решения для выставочных пространств
 ▪ Уникальные выставки/павильоны/стенды под ключ">
-<meta property="og:image" content="/static/lit3d/img/og-img.jpg">
-<meta property="og:image:secure_url" content="/static/lit3d/img/og-img.jpg">
-<link rel="preload" as="font" href="/static/lit3d/fonts/druk-wide-medium.woff2" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" as="font" href="/static/lit3d/fonts/montserrat-regular.woff2" type="font/woff" crossorigin="anonymous">
-<link rel="stylesheet" href="/static/lit3d/css/main.min.css?=v5">
-<link rel="icon" href="/static/lit3d/img/favicon/favicon.svg">
-<link rel="apple-touch-icon" href="/static/lit3d/apple-touch-icon.png">
-<link rel="manifest" href="/static/lit3d/manifest.json">
+<meta property="og:image" content="{% static 'img/og-img.jpg' %}">
+<meta property="og:image:secure_url" content="{% static 'img/og-img.jpg' %}">
+<link rel="preload" as="font" href="{% static 'fonts/druk-wide-medium.woff2' %}" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" as="font" href="{% static 'fonts/montserrat-regular.woff2' %}" type="font/woff" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/main.min.css' %}">
+<link rel="icon" href="{% static 'img/favicon/favicon.svg' %}">
+<link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
+<link rel="manifest" href="{% static 'img/favicon/manifest.json' %}">
 </head>
 
 <body>
@@ -36,7 +38,7 @@
 							<div class="page-header__col">
 								<div class="page-header__inner">
 									<div class="page-header__logo a-fade js-reveal-intro">
-										<img class="page-header__logo-img" src="/static/lit3d/img/page-logo.svg" width="96" height="32" alt="LIT3D">
+										<img class="page-header__logo-img" src="{% static 'img/page-logo.svg' %}" width="96" height="32" alt="LIT3D">
 									</div>
 									<nav class="page-header__nav">
 										<div class="page-header__nav-inner">
@@ -81,9 +83,9 @@
 								<div class="section__col section__col--center">
 									<h1 class="main-title">
 										<div class="main-title__spacer"></div>
-										<div class="main-title__title a-fade js-reveal-intro">Новейшие технологии</div>
+										{{ slogans.main_heading | safe }}
 										<div class="main-title__desc a-fade js-reveal-intro">
-											<div class="main-title__subtitle">в мультимедийных выставках и экспозиционных павильонах</div>
+											{{ slogans.main_subheading | safe }}
 											<!--div class="main-title__subtitle"></div-->
 										</div>
 									</h1>
@@ -99,9 +101,9 @@
 							<div class="section__row">
 								<div class="section__col section__col--8">
 									<div class="about">
-										<h2 class="section-title a-fade js-reveal-about">Мы — команда амбициозных профессионалов, преданных своему делу и вдохновленных идеями техношаманизма</h2>
+										{{ slogans.about_heading | safe }}
 										<div class="content about__content a-fade js-reveal-about">
-											<p>За нами более 30 успешно реализованных выставочных проектов, участие в государственных контрактах и прямые договоры с ведущими производителями мультимедийного оборудования. Мы создаем уникальные проекты, не имеющие аналогов в мире, сочетая технологии и креативные решения, чтобы воплотить ваши самые смелые идеи в реальность!</p>
+											{{ slogans.about_text | safe }}
 										</div>
 									</div>
 								</div>
@@ -116,14 +118,36 @@
 							<div class="projects__container">
 								<div class="projects__inner">
 									<div class="projects__row">
-										<div class="projects__col">
+										{% for project in projects %}
+											<div class="projects__col">
+												<div class="projects__col-inner">
+													<div class="p-card" data-modal-trigger='p-modal-15' data-slug="{{ project.slug }}">
+														<div class="p-card__wrapper">
+															<div class="p-card__inner">
+																<div class="p-card__img-wrap">
+																	<picture>
+																		<img class="p-card__img js-reveal-p-card" src="/media/{{project.preview_image}}" srcset="{ project.preview_image }" width="768" height="768" loading="lazy" alt="">
+																	</picture>
+																</div>
+																<h2 class="p-card__title">{{ project.title }}</h2>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="projects__col">
+												<div class="projects__col-inner">
+												</div>
+											</div>
+										{% endfor %}
+										{% comment %} <div class="projects__col">
 											<div class="projects__col-inner">
 												<div class="p-card" data-modal-trigger='p-modal-15'>
 													<div class="p-card__wrapper">
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-15--xs.jpg" srcset="img/p-card-img-15--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-15--xs.jpg' %}" srcset="{% static 'img/p-card-img-15--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">ПМЭФ — стенд правительства Москвы</h2>
@@ -144,7 +168,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-01--xs.jpg" srcset="img/p-card-img-01--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-01--xs.jpg' %}" srcset="{% static 'img/p-card-img-01--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">Выставка Россия — Павильон Свердловской области</h2>
@@ -165,7 +189,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-02--xs.jpg" srcset="img/p-card-img-02--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-02--xs.jpg' %}" srcset="{% static 'img/p-card-img-02--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">Выставка Россия — Павильон Ульяновской области</h2>
@@ -185,7 +209,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-03--xs.jpg" srcset="img/p-card-img-03--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-03--xs.jpg' %}" srcset="{% static 'img/p-card-img-03--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">Выставка Россия — Павильон Белгородской области</h2>
@@ -205,7 +229,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-04--xs.jpg" srcset="img/p-card-img-04--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-04--xs.jpg' %}" srcset="{% static 'img/p-card-img-04--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">РМИ — 300 лет Екатеринбургу</h2>
@@ -225,7 +249,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-05--xs.jpg" srcset="img/p-card-img-05--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-05--xs.jpg' %}" srcset="{% static 'img/p-card-img-05--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">РМИ — Не словом, а делом</h2>
@@ -245,7 +269,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-06--xs.jpg" srcset="img/p-card-img-06--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-06--xs.jpg' %}" srcset="{% static 'img/p-card-img-06--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">РМИ — Александр Невский</h2>
@@ -265,7 +289,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-07--xs.jpg" srcset="img/p-card-img-07--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-07--xs.jpg' %}" srcset="{% static 'img/p-card-img-07--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">РМИ — Николай Кузнецов. Герои не умирают</h2>
@@ -285,7 +309,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-08--xs.jpg" srcset="img/p-card-img-08--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-08--xs.jpg' %}" srcset="{% static 'img/p-card-img-08--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">РМИ — Николай Кузнецов. Человек легенда</h2>
@@ -305,7 +329,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-09--xs.jpg" srcset="img/p-card-img-09--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-09--xs.jpg' %}" srcset="{% static 'img/p-card-img-09--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">РМИ — Вспомним</h2>
@@ -325,7 +349,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-10--xs.jpg" srcset="img/p-card-img-10--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-10--xs.jpg' %}" srcset="{% static 'img/p-card-img-10--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">Презентационный центр Свердловской области</h2>
@@ -345,7 +369,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-11--xs.jpg" srcset="img/p-card-img-11--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-11--xs.jpg' %}" srcset="{% static 'img/p-card-img-11--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">Арт — Уральский Марс</h2>
@@ -365,7 +389,7 @@
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-12--xs.jpg" srcset="img/p-card-img-12--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-12--xs.jpg' %}" srcset="{% static 'img/p-card-img-12--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">РМИ — Георгиевская слава России</h2>
@@ -377,7 +401,7 @@
 										<div class="projects__col">
 											<div class="projects__col-inner">
 											</div>
-										</div>
+										</div> {% endcomment %}
 										<!--div class="projects__col">
 										<div class="projects__col-inner">
 											
@@ -386,7 +410,7 @@
 		<div class="p-card__inner">
 			<div class="p-card__img-wrap">
 				<picture>
-					<img class="p-card__img js-reveal-p-card" src="img/p-card-img-13--xs.jpg" srcset="img/p-card-img-13--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+					<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-13--xs.jpg' %}" srcset="{% static 'img/p-card-img-13--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 				</picture>
 			</div>
 			<h2 class="p-card__title">РМИ - Афган. Осмысление</h2>
@@ -401,14 +425,14 @@
 										<div class="projects__col-inner">
 										</div>
 									</div-->
-										<div class="projects__col">
+										{% comment %} <div class="projects__col">
 											<div class="projects__col-inner">
 												<div class="p-card" data-modal-trigger='p-modal-14'>
 													<div class="p-card__wrapper">
 														<div class="p-card__inner">
 															<div class="p-card__img-wrap">
 																<picture>
-																	<img class="p-card__img js-reveal-p-card" src="img/p-card-img-14--xs.jpg" srcset="img/p-card-img-14--xs@2x.jpg 2x" width="768" height="768" loading="lazy" alt="">
+																	<img class="p-card__img js-reveal-p-card" src="{% static 'img/p-card-img-14--xs.jpg' %}" srcset="{% static 'img/p-card-img-14--xs@2x.jpg' %}" width="768" height="768" loading="lazy" alt="">
 																</picture>
 															</div>
 															<h2 class="p-card__title">PDA — Техподдержка</h2>
@@ -420,7 +444,7 @@
 										<div class="projects__col">
 											<div class="projects__col-inner">
 											</div>
-										</div>
+										</div> {% endcomment %}
 									</div>
 								</div>
 							</div>
@@ -439,12 +463,31 @@
 						<div class="slider slider--team">
 							<div class="slider__instance swiper js-slider" data-slider-params="team">
 								<div class="slider__wrapper swiper-wrapper">
-									<div class="slider__item swiper-slide">
+
+									{% for employee in employees %}
+										<div class="slider__item swiper-slide">
+											<div class="slider__t-card a-fade js-reveal-team">
+												<div class="slider__t-card-img-wrap">
+													<div class="slider__t-card-img-ratio">
+														<picture>
+															<img class="slider__t-card-img" src="/media/{{ employee.photo }}" srcset="/media/{{ employee.photo }}" width="600" height="900" alt="">
+														</picture>
+													</div>
+												</div>
+												<div class="slider__t-card-desc">
+													<h3 class="slider__t-card-name">{{ employee.name }}</h3>
+													<div class="slider__t-card-position">{{ employee.position }}</div>
+												</div>
+											</div>
+										</div>								
+									{% endfor %}
+
+									{% comment %} <div class="slider__item swiper-slide">
 										<div class="slider__t-card a-fade js-reveal-team">
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/t-card-img-02--xs.png" srcset="img/t-card-img-02--xs@2x.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/t-card-img-02--xs.png' %}" srcset="{% static 'img/t-card-img-02--xs@2x.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -460,7 +503,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/t-card-img-03--xs.png" srcset="img/t-card-img-03--xs@2x.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/t-card-img-03--xs.png' %}" srcset="{% static 'img/t-card-img-03--xs@2x.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -475,7 +518,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/t-card-img-01--xs.png" srcset="img/t-card-img-01--xs@2x.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/t-card-img-01--xs.png' %}" srcset="{% static 'img/t-card-img-01--xs@2x.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -490,7 +533,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/t-card-img-07--xs.png" srcset="img/t-card-img-07--xs@2x.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/t-card-img-07--xs.png' %}" srcset="{% static 'img/t-card-img-07--xs@2x.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -505,7 +548,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/t-card-img-04--xs.png" srcset="img/t-card-img-04--xs@2x.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/t-card-img-04--xs.png' %}" srcset="{% static 'img/t-card-img-04--xs@2x.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -520,7 +563,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/Оля.png" srcset="img/Оля.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/Оля.png' %}" srcset="{% static 'img/Оля.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -535,7 +578,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/t-card-img-05--xs.png" srcset="img/t-card-img-05--xs@2x.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/t-card-img-05--xs.png' %}" srcset="{% static 'img/t-card-img-05--xs@2x.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -550,7 +593,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/t-card-img-06--xs.png" srcset="img/t-card-img-06--xs@2x.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/t-card-img-06--xs.png' %}" srcset="{% static 'img/t-card-img-06--xs@2x.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -565,7 +608,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/Лора.png" srcset="img/Лора.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/Лора.png' %}" srcset="{% static 'img/Лора.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -580,7 +623,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/Никита.png" srcset="img/Никита.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/Никита.png' %}" srcset="{% static 'img/Никита.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -595,7 +638,7 @@
 											<div class="slider__t-card-img-wrap">
 												<div class="slider__t-card-img-ratio">
 													<picture>
-														<img class="slider__t-card-img" src="img/Валера.png" srcset="img/Валера.png 2x" width="600" height="900" alt="">
+														<img class="slider__t-card-img" src="{% static 'img/Валера.png' %}" srcset="{% static 'img/Валера.png' %}" width="600" height="900" alt="">
 													</picture>
 												</div>
 											</div>
@@ -604,7 +647,7 @@
 												<div class="slider__t-card-position">IT специалист</div>
 											</div>
 										</div>
-									</div>
+									</div> {% endcomment %}
 								</div>
 								<div class="slider__pagination swiper-pagination swiper-pagination--alternate js-slider-pagination a-fade js-reveal-team"></div>
 							</div>
@@ -619,28 +662,28 @@
 								<div class="section__col section__col--contacts">
 									<div class="contacts">
 										<div class="contacts__header a-fade js-reveal-contacts">
-											<h2 class="section-title section-title--size_small">Готовы к успеху?</h2>
-											<h3 class="section-title section-title--size_small"> Свяжитесь с нами и мы вместе создадим <nobr>что-то</nobr> выдающееся!</h3>
+											{{ slogans.contact_heading | safe }}
+											{{ slogans.contact_subheading | safe }}
 										</div>
 										<div class="contacts__body a-fade js-reveal-contacts">
 											<div class="contacts-list">
 												<div class="contacts-list__item">
-													<a class="contacts-list__link" href="tel:88002503976">8 800 250 39 76</a>
+													<a class="contacts-list__link" href="tel:88002503976">{{ contacts.phone_number }}</a>
 												</div>
 												<div class="contacts-list__item">
-													<a class="contacts-list__link" href="lit3d@gmail.com">main@lit3d.io</a>
+													<a class="contacts-list__link" href="lit3d@gmail.com">{{ contacts.email }}</a>
 												</div>
 												<div class="contacts-list__item">
 													<ul class="social-list">
 														<li class="social-list__item">
-															<a class="social-list__link" href="https://www.instagram.com/lit3dmap/" target="_blank">
+															<a class="social-list__link" href="{{ contacts.instagram_url }}" target="_blank">
 																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="32px" height="32px">
 																	<path d="M 16 3 C 8.83 3 3 8.83 3 16 L 3 34 C 3 41.17 8.83 47 16 47 L 34 47 C 41.17 47 47 41.17 47 34 L 47 16 C 47 8.83 41.17 3 34 3 L 16 3 z M 37 11 C 38.1 11 39 11.9 39 13 C 39 14.1 38.1 15 37 15 C 35.9 15 35 14.1 35 13 C 35 11.9 35.9 11 37 11 z M 25 14 C 31.07 14 36 18.93 36 25 C 36 31.07 31.07 36 25 36 C 18.93 36 14 31.07 14 25 C 14 18.93 18.93 14 25 14 z M 25 16 C 20.04 16 16 20.04 16 25 C 16 29.96 20.04 34 25 34 C 29.96 34 34 29.96 34 25 C 34 20.04 29.96 16 25 16 z" />
 																</svg>
 															</a>
 														</li>
 														<li class="social-list__item">
-															<a class="social-list__link" href="https://vk.com/lit3dmap" target="_blank">
+															<a class="social-list__link" href="{{ contacts.vk_url }}" target="_blank">
 																<!--svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 																<path d="M21.6607 7.76C20.7452 6.7195 20.2407 5.38324 20.2411 4H16.1027V20.5333C16.0708 21.428 15.6913 22.2755 15.0443 22.8973C14.3973 23.519 13.5332 23.8665 12.6339 23.8667C10.7321 23.8667 9.15179 22.32 9.15179 20.4C9.15179 18.1067 11.375 16.3867 13.6652 17.0933V12.88C9.04464 12.2667 5 15.84 5 20.4C5 24.84 8.69643 28 12.6205 28C16.8259 28 20.2411 24.6 20.2411 20.4V12.0133C21.9192 13.2131 23.934 13.8569 26 13.8533V9.73333C26 9.73333 23.4821 9.85333 21.6607 7.76Z" fill="white"/>
 															</svg-->
@@ -650,14 +693,14 @@
 															</a>
 														</li>
 														<li class="social-list__item">
-															<a class="social-list__link" href="https://ru.pinterest.com/lit3d/" target="_blank">
+															<a class="social-list__link" href="{{ contacts.pinterest_url }}" target="_blank">
 																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="32px" height="32px">
 																	<path d="M25,2C12.3178711,2,2,12.3178711,2,25c0,9.8841553,6.2675781,18.3302612,15.036377,21.5769653	c-0.2525635-2.2515869-0.2129517-5.9390259,0.2037964-7.7243652c0.3902588-1.677002,2.5212402-10.6871338,2.5212402-10.6871338	s-0.6433105-1.2883301-0.6433105-3.1911011c0-2.9901733,1.7324219-5.2211914,3.8898315-5.2211914	c1.8349609,0,2.7197876,1.3776245,2.7197876,3.0281982c0,1.8457031-1.1734619,4.6026611-1.78125,7.1578369	c-0.506897,2.1409302,1.0733643,3.8865356,3.1836548,3.8865356c3.821228,0,6.7584839-4.0296021,6.7584839-9.8453369	c0-5.147583-3.697998-8.7471924-8.9795532-8.7471924c-6.1167603,0-9.7072754,4.588562-9.7072754,9.3309937	c0,1.8473511,0.7111816,3.8286743,1.6000977,4.9069824c0.175293,0.2133179,0.2009277,0.3994141,0.1488647,0.6160278	c-0.1629028,0.678894-0.5250854,2.1392822-0.5970459,2.4385986c-0.0934448,0.3944702-0.3117676,0.4763184-0.7186279,0.2869263	c-2.685791-1.2503052-4.364502-5.1756592-4.364502-8.3295898c0-6.7815552,4.9268188-13.0108032,14.206543-13.0108032	c7.4588623,0,13.2547607,5.3138428,13.2547607,12.4179077c0,7.4100342-4.6729126,13.3729858-11.1568604,13.3729858	c-2.178894,0-4.2263794-1.132019-4.9267578-2.4691772c0,0-1.0783081,4.1048584-1.3404541,5.1112061	c-0.4524536,1.7404175-2.3892822,5.3460083-3.3615723,6.9837036C20.1704712,47.6074829,22.5397949,48,25,48	c12.6826172,0,23-10.3173828,23-23C48,12.3178711,37.6826172,2,25,2z" />
 																</svg>
 															</a>
 														</li>
 														<li class="social-list__item">
-															<a class="social-list__link" href="https://www.behance.net/lit3dteam" target="_blank">
+															<a class="social-list__link" href="{{ contacts.behance_url }}" target="_blank">
 																<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="32px" height="32px">
 																	<path d="M 9 4 C 6.24 4 4 6.24 4 9 L 4 41 C 4 43.76 6.24 46 9 46 L 41 46 C 43.76 46 46 43.76 46 41 L 46 9 C 46 6.24 43.76 4 41 4 L 9 4 z M 12 18 L 18.730469 18 C 19.460469 18 23.410156 17.950312 23.410156 21.570312 C 23.410156 23.490313 22.099766 24.139688 21.509766 24.429688 C 22.389766 24.709688 24 25.52 24 28 C 24 31.83 19.609531 32 19.019531 32 L 12 32 L 12 18 z M 29 18 L 36 18 L 36 20 L 29 20 L 29 18 z M 15 20.429688 L 15 23.710938 L 18.220703 23.710938 C 18.660703 23.710938 20.119141 23.47 20.119141 22 C 20.119141 20.53 18.219687 20.429688 17.929688 20.429688 L 15 20.429688 z M 32.730469 21 C 36.630469 21 37.689609 24.039766 37.849609 24.759766 C 37.999609 25.489766 38 26.13 38 27 L 30.099609 27 C 30.099609 27.87 30.560625 29.830078 32.890625 29.830078 C 33.510625 29.830078 33.969453 29.680625 34.439453 29.390625 C 34.899453 29.100625 35.060938 28.819297 35.210938 28.529297 L 37.839844 28.529297 C 37.379844 29.679297 36.760078 30.550859 35.830078 31.130859 C 34.900078 31.710859 33.820078 32 32.580078 32 C 31.800078 32 31.03 31.850547 30.25 31.560547 C 29.63 31.270547 29.010781 30.840156 28.550781 30.410156 C 28.090781 29.970156 27.780703 29.389922 27.470703 28.669922 C 27.160703 28.089922 27 27.22 27 26.5 C 27 25.78 27.290469 21 32.730469 21 z M 32.730469 23.029297 C 30.470469 23.029297 30.099609 25.199844 30.099609 25.339844 L 35.060547 25.339844 C 34.900547 24.619844 34.250469 23.029297 32.730469 23.029297 z M 15 25.710938 L 15 29.570312 L 18.351562 29.570312 C 18.640563 29.570312 20.679688 29.480937 20.679688 27.710938 C 20.679687 25.950937 19.077562 25.710938 18.351562 25.710938 L 15 25.710938 z" />
 																</svg>
@@ -678,7 +721,7 @@
 						<div class="section__container">
 							<div class="section__row">
 								<div class="section__col section__col--8 section__col--center">
-									<h2 class="section-title section-title--size_small section-title--align_center a-fade js-reveal-outro">Невозможное мы сделаем сразу, а для чуда понадобится немного подготовки</h2>
+									{{ slogans.slogan | safe }}
 								</div>
 							</div>
 						</div>
@@ -725,7 +768,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-01--xs.jpg" srcset="img/PMEF/PMEF-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-01--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -734,7 +777,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-02--xs.jpg" srcset="img/PMEF/PMEF-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-02--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -743,7 +786,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-03--xs.jpg" srcset="img/PMEF/PMEF-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-03--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -752,7 +795,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-04--xs.jpg" srcset="img/PMEF/PMEF-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-04--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -761,7 +804,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-05--xs.jpg" srcset="img/PMEF/PMEF-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-05--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -770,7 +813,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-06--xs.jpg" srcset="img/PMEF/PMEF-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-06--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -779,7 +822,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-07--xs.jpg" srcset="img/PMEF/PMEF-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-07--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -788,7 +831,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-08--xs.jpg" srcset="img/PMEF/PMEF-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-08--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -797,7 +840,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-09--xs.jpg" srcset="img/PMEF/PMEF-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-09--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -806,7 +849,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PMEF/PMEF-m-img-10--xs.jpg" srcset="img/PMEF/PMEF-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-10--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -852,7 +895,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-01--xs.jpg" srcset="img/SO/SO-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-01--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -861,7 +904,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-02--xs.jpg" srcset="img/SO/SO-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-02--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -870,7 +913,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-03--xs.jpg" srcset="img/SO/SO-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-03--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -879,7 +922,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-04--xs.jpg" srcset="img/SO/SO-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-04--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -888,7 +931,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-05--xs.jpg" srcset="img/SO/SO-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-05--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -897,7 +940,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-06--xs.jpg" srcset="img/SO/SO-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-06--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -906,7 +949,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-07--xs.jpg" srcset="img/SO/SO-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-07--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -915,7 +958,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-08--xs.jpg" srcset="img/SO/SO-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-08--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -924,7 +967,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-09--xs.jpg" srcset="img/SO/SO-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-09--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -933,7 +976,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/SO/SO-m-img-10--xs.jpg" srcset="img/SO/SO-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/SO/SO-m-img-10--xs.jpg' %}" srcset="{% static 'img/SO/SO-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -980,7 +1023,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-01--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-01--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -989,7 +1032,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-02--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-02--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -998,7 +1041,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-03--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-03--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1007,7 +1050,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-04--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-04--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1016,7 +1059,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-05--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-05--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1025,7 +1068,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-06--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-06--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1034,7 +1077,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-07--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-07--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1043,7 +1086,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-08--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-08--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1052,7 +1095,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-09--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-09--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1061,7 +1104,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ulianovsk/Ulianovsk-m-img-10--xs.jpg" srcset="img/Ulianovsk/Ulianovsk-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ulianovsk/Ulianovsk-m-img-10--xs.jpg' %}" srcset="{% static 'img/Ulianovsk/Ulianovsk-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1107,7 +1150,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-01--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-01--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1116,7 +1159,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-02--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-02--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1125,7 +1168,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-03--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-03--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1134,7 +1177,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-04--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-04--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1143,7 +1186,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-05--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-05--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1152,7 +1195,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-06--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-06--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1161,7 +1204,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-07--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-07--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1170,7 +1213,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-08--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-08--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1179,7 +1222,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-09--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-09--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1188,7 +1231,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Belgorod/Belgorod-m-img-10--xs.jpg" srcset="img/Belgorod/Belgorod-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Belgorod/Belgorod-m-img-10--xs.jpg' %}" srcset="{% static 'img/Belgorod/Belgorod-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1241,7 +1284,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-01--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-01--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1250,7 +1293,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-02--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-02--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1259,7 +1302,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-03--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-03--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1268,7 +1311,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-04--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-04--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1277,7 +1320,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-05--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-05--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1286,7 +1329,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-06--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-06--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1295,7 +1338,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-07--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-07--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1304,7 +1347,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-08--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-08--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1313,7 +1356,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-09--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-09--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1322,7 +1365,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Ekb300/Ekb300-m-img-10--xs.jpg" srcset="img/Ekb300/Ekb300-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Ekb300/Ekb300-m-img-10--xs.jpg' %}" srcset="{% static 'img/Ekb300/Ekb300-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1369,7 +1412,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-01--xs.jpg" srcset="img/Petr/Petr-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-01--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1378,7 +1421,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-02--xs.jpg" srcset="img/Petr/Petr-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-02--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1387,7 +1430,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-03--xs.jpg" srcset="img/Petr/Petr-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-03--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1396,7 +1439,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-04--xs.jpg" srcset="img/Petr/Petr-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-04--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1405,7 +1448,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-05--xs.jpg" srcset="img/Petr/Petr-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-05--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1414,7 +1457,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-06--xs.jpg" srcset="img/Petr/Petr-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-06--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1423,7 +1466,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-07--xs.jpg" srcset="img/Petr/Petr-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-07--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1432,7 +1475,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-08--xs.jpg" srcset="img/Petr/Petr-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-08--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1441,7 +1484,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-09--xs.jpg" srcset="img/Petr/Petr-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-09--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1450,7 +1493,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Petr/Petr-m-img-10--xs.jpg" srcset="img/Petr/Petr-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Petr/Petr-m-img-10--xs.jpg' %}" srcset="{% static 'img/Petr/Petr-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1496,7 +1539,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-01--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-01--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1505,7 +1548,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-02--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-02--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1514,7 +1557,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-03--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-03--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1523,7 +1566,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-04--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-04--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1532,7 +1575,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-05--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-05--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1541,7 +1584,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-06--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-06--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1550,7 +1593,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-07--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-07--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1559,7 +1602,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-08--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-08--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1568,7 +1611,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-09--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-09--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1577,7 +1620,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Nevsky/Nevsky-m-img-10--xs.jpg" srcset="img/Nevsky/Nevsky-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Nevsky/Nevsky-m-img-10--xs.jpg' %}" srcset="{% static 'img/Nevsky/Nevsky-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1625,7 +1668,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-01--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-01--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1634,7 +1677,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-02--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-02--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1643,7 +1686,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-03--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-03--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1652,7 +1695,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-04--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-04--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1661,7 +1704,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-05--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-05--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1670,7 +1713,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-06--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-06--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1679,7 +1722,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-07--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-07--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1688,7 +1731,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-08--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-08--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1697,7 +1740,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-09--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-09--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1706,7 +1749,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov1/Kuznetsov1-m-img-10--xs.jpg" srcset="img/Kuznetsov1/Kuznetsov1-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-10--xs.jpg' %}" srcset="{% static 'img/Kuznetsov1/Kuznetsov1-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1752,7 +1795,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-01--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-01--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1761,7 +1804,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-02--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-02--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1770,7 +1813,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-03--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-03--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1779,7 +1822,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-04--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-04--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1788,7 +1831,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-05--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-05--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1797,7 +1840,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-06--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-06--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1806,7 +1849,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-07--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-07--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1815,7 +1858,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-08--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-08--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1824,7 +1867,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-09--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-09--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1833,7 +1876,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Kuznetsov2/Kuznetsov2-m-img-10--xs.jpg" srcset="img/Kuznetsov2/Kuznetsov2-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-10--xs.jpg' %}" srcset="{% static 'img/Kuznetsov2/Kuznetsov2-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1879,7 +1922,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-01--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-01--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1888,7 +1931,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-02--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-02--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1897,7 +1940,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-03--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-03--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1906,7 +1949,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-04--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-04--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1915,7 +1958,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-05--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-05--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1924,7 +1967,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-06--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-06--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1933,7 +1976,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-07--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-07--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1942,7 +1985,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-08--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-08--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1951,7 +1994,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-09--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-09--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -1960,7 +2003,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Vspomnim/Vspomnim-m-img-10--xs.jpg" srcset="img/Vspomnim/Vspomnim-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Vspomnim/Vspomnim-m-img-10--xs.jpg' %}" srcset="{% static 'img/Vspomnim/Vspomnim-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2006,7 +2049,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-01--xs.jpg" srcset="img/PCSO/PCSO-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-01--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2015,7 +2058,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-02--xs.jpg" srcset="img/PCSO/PCSO-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-02--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2024,7 +2067,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-03--xs.jpg" srcset="img/PCSO/PCSO-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-03--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2033,7 +2076,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-04--xs.jpg" srcset="img/PCSO/PCSO-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-04--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2042,7 +2085,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-05--xs.jpg" srcset="img/PCSO/PCSO-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-05--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2051,7 +2094,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-06--xs.jpg" srcset="img/PCSO/PCSO-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-06--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2060,7 +2103,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-07--xs.jpg" srcset="img/PCSO/PCSO-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-07--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2069,7 +2112,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-08--xs.jpg" srcset="img/PCSO/PCSO-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-08--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2078,7 +2121,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-09--xs.jpg" srcset="img/PCSO/PCSO-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-09--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2087,7 +2130,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PCSO/PCSO-m-img-10--xs.jpg" srcset="img/PCSO/PCSO-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PCSO/PCSO-m-img-10--xs.jpg' %}" srcset="{% static 'img/PCSO/PCSO-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2133,7 +2176,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-01--xs.jpg" srcset="img/Mars/Mars-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-01--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2142,7 +2185,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-02--xs.jpg" srcset="img/Mars/Mars-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-02--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2151,7 +2194,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-03--xs.jpg" srcset="img/Mars/Mars-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-03--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2160,7 +2203,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-04--xs.jpg" srcset="img/Mars/Mars-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-04--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2169,7 +2212,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-05--xs.jpg" srcset="img/Mars/Mars-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-05--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2178,7 +2221,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-06--xs.jpg" srcset="img/Mars/Mars-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-06--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2187,7 +2230,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-07--xs.jpg" srcset="img/Mars/Mars-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-07--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2196,7 +2239,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-08--xs.jpg" srcset="img/Mars/Mars-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-08--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2205,7 +2248,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-09--xs.jpg" srcset="img/Mars/Mars-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-09--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2214,7 +2257,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Mars/Mars-m-img-10--xs.jpg" srcset="img/Mars/Mars-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Mars/Mars-m-img-10--xs.jpg' %}" srcset="{% static 'img/Mars/Mars-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2260,7 +2303,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-01--xs.jpg" srcset="img/Georgy/Georgy-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-01--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2269,7 +2312,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-02--xs.jpg" srcset="img/Georgy/Georgy-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-02--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2278,7 +2321,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-03--xs.jpg" srcset="img/Georgy/Georgy-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-03--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2287,7 +2330,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-04--xs.jpg" srcset="img/Georgy/Georgy-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-04--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2296,7 +2339,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-05--xs.jpg" srcset="img/Georgy/Georgy-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-05--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2305,7 +2348,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-06--xs.jpg" srcset="img/Georgy/Georgy-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-06--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2314,7 +2357,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-07--xs.jpg" srcset="img/Georgy/Georgy-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-07--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2323,7 +2366,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-08--xs.jpg" srcset="img/Georgy/Georgy-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-08--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2332,7 +2375,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-09--xs.jpg" srcset="img/Georgy/Georgy-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-09--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2341,7 +2384,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/Georgy/Georgy-m-img-10--xs.jpg" srcset="img/Georgy/Georgy-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/Georgy/Georgy-m-img-10--xs.jpg' %}" srcset="{% static 'img/Georgy/Georgy-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2387,7 +2430,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-01--xs.jpg" srcset="img/PDA/PDA-m-img-01--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-01--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-01--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2396,7 +2439,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-02--xs.jpg" srcset="img/PDA/PDA-m-img-02--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-02--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-02--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2405,7 +2448,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-03--xs.jpg" srcset="img/PDA/PDA-m-img-03--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-03--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-03--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2414,7 +2457,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-04--xs.jpg" srcset="img/PDA/PDA-m-img-04--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-04--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-04--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2423,7 +2466,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-05--xs.jpg" srcset="img/PDA/PDA-m-img-05--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-05--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-05--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2432,7 +2475,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-06--xs.jpg" srcset="img/PDA/PDA-m-img-06--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-06--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-06--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2441,7 +2484,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-07--xs.jpg" srcset="img/PDA/PDA-m-img-07--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-07--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-07--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2450,7 +2493,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-08--xs.jpg" srcset="img/PDA/PDA-m-img-08--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-08--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-08--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2459,7 +2502,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-09--xs.jpg" srcset="img/PDA/PDA-m-img-09--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-09--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-09--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2468,7 +2511,7 @@
 								<div class="m-img">
 									<div class="m-img__ratio">
 										<picture>
-											<img class="m-img__img" src="img/PDA/PDA-m-img-10--xs.jpg" srcset="img/PDA/PDA-m-img-10--xs.jpg 2x" alt="">
+											<img class="m-img__img" src="{% static 'img/PDA/PDA-m-img-10--xs.jpg' %}" srcset="{% static 'img/PDA/PDA-m-img-10--xs.jpg' %}" alt="">
 										</picture>
 									</div>
 								</div>
@@ -2484,7 +2527,7 @@
 			</button>
 		</div>
 	</div>
-	<script src="/static/lit3d/js/main.min.js?=v6"></script>
+	<script src="{% static 'js/main.min.js' %}"></script>
 </body>
 
 </html>
