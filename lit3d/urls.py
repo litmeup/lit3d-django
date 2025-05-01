@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from . import views
+from .views import portfolio_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),  # Главная страница
-    path('so/', views.so, name='so'),  # Главная страница
+    path('so/', views.so, name='so'),
+    path('portfolio/<slug:slug>/', portfolio_page, name='portfolio_page'),
 ]

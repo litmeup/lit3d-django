@@ -1,0 +1,36 @@
+{% extends 'base_portfolio.html' %}
+
+{% block content %}
+
+    <div class="main">
+        <header>
+            <a href="#"><img src="/static/lit3d/so/image/Return.svg"></a>
+        </header>
+        <div class="event">
+            <div class="event-date">
+                {{ page.date|date:"F Y" }}
+            </div>
+            <div class="event-title">
+                <div>{{ page.section }}</div>
+                <div>{{ page.title }}</div>
+            </div>
+            <div class="event-paragraphs1">
+                <p class="event-description">{{ page.description_short }}</p>
+            </div>
+            <div class="event-paragraphs2">    
+                <p class="event-description">{{ page.description_extended }}</p>
+            </div>
+        </div>
+    </div>
+    {% if page.main_image %}
+    <div class="large_group">
+        <!--img src="/static/lit3d/so/image/2.1.png" alt="Крупное изображение"></p-->
+        <img src="{{ page.main_image.url }}" alt="{{ page.title }}">
+    </div>
+    {% endif %}
+    <main>
+    {{ page.content }}
+    </main>
+{% endblock %}
+
+
