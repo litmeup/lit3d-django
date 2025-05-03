@@ -1,17 +1,21 @@
-up:
-	docker compose -f Docker-compose.yaml up -d
+build:
+	docker build -t lit3d-web -f Dockerfile.django .
 
 stop:
-	docker compose -f Docker-compose.yaml stop
+	docker stop lit3d-web
 
 start:
-	docker compose -f Docker-compose.yaml start
+	docker run -d -p 8000:8000 --name lit3d-web \
+	--env-file .env \
+	--restart unless-stopped \
+	lit3d-web
 
 restart:
 	make stop && make start
 
 down:
-	docker compose -f Docker-compose.yaml down
+	docker stop lit3d-web
+	docker rm lit3d-web
 
 envs:
 	cp .env.example .env

@@ -15,3 +15,5 @@ RUN python manage.py makemigrations
 RUN python manage.py makemigrations lit3d
 
 EXPOSE 8000
+
+CMD ["sh", "-c", "entrypoint.sh"]
