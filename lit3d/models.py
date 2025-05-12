@@ -32,6 +32,7 @@ class Project(models.Model):
     short_description = models.TextField(verbose_name="Краткое описание", null=True, blank=True)
     full_description = models.TextField(verbose_name="Подробное описание", null=True, blank=True)
     content = models.TextField(verbose_name="Контент (HTML)", null=True, blank=True)
+    order_number = models.PositiveIntegerField(default=0, verbose_name="Порядковый номер", null=True, blank=True)
 
     class Meta:
         verbose_name = "Проект"
@@ -46,6 +47,7 @@ class Employee(models.Model):
     name = models.CharField(max_length=255, verbose_name="Имя")
     position = models.CharField(max_length=255, verbose_name="Позиция")
     is_published = models.BooleanField(default=False, verbose_name="Опубликовано?")
+    order_number = models.PositiveIntegerField(default=0, verbose_name="Порядковый номер", null=True, blank=True)
 
     class Meta:
         verbose_name = "Сотрудник"

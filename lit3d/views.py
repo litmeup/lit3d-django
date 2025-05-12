@@ -7,8 +7,8 @@ def home(request):
     return render(request, 'lit3d/index.html', context={
         "contacts": ContactInfo.objects.first(),
         "slogans": Slogans.objects.first(),
-        "projects": Project.objects.filter(is_published=True),
-        "employees": Employee.objects.filter(is_published=True)
+        "projects": Project.objects.filter(is_published=True).order_by("order_number"),
+        "employees": Employee.objects.filter(is_published=True).order_by("order_number"),
     })
 
 def so(request):
