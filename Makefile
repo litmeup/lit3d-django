@@ -8,7 +8,9 @@ start:
 	docker run -d -p 8000:8000 --name lit3d-web \
 	--env-file .env \
 	--restart unless-stopped \
+	-v $(shell pwd)/data/:/app/data/ \
 	lit3d-web
+
 
 restart:
 	make stop && make start
