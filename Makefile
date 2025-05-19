@@ -9,6 +9,7 @@ start:
 	--env-file .env \
 	--restart unless-stopped \
 	-v $(shell pwd)/data/:/app/data/ \
+	-v $(shell pwd)/lit3d/:/app/lit3d/ \
 	lit3d-web
 
 
