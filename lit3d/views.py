@@ -18,4 +18,7 @@ def projects(request, slug):
     project = Project.objects.filter(slug=slug).first()
     if not project:
         return HttpResponseNotFound()
-    return HttpResponse(project.content)
+    #return HttpResponse(project.content)
+    return render(request, 'portfolio/page.html', {
+        'page': project
+    })

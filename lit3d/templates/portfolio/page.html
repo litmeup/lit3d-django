@@ -11,25 +11,32 @@
                 {{ page.date|date:"F Y" }}
             </div>
             <div class="event-title">
-                <div>{{ page.section }}</div>
+                <div>{{ page.category }}</div>
                 <div>{{ page.title }}</div>
             </div>
             <div class="event-paragraphs1">
-                <p class="event-description">{{ page.description_short }}</p>
+                <p class="event-description">{{ page.short_description }}</p>
             </div>
             <div class="event-paragraphs2">    
-                <p class="event-description">{{ page.description_extended }}</p>
+                <p class="event-description">{{ page.full_description }}</p>
             </div>
         </div>
     </div>
-    {% if page.main_image %}
     <div class="large_group">
-        <!--img src="/static/lit3d/so/image/2.1.png" alt="Крупное изображение"></p-->
-        <img src="{{ page.main_image.url }}" alt="{{ page.title }}">
-    </div>
+    {% if page.video %}
+    <video>
+        <source
+            src="{{ page.video.url }}"
+            type="video/mp4" />
+    </video>
     {% endif %}
+    {% if page.main_image %}
+        <!--img src="/static/lit3d/so/image/2.1.png" alt="Крупное изображение"></p-->
+        <img src="{{ page.large_image.url }}" alt="{{ page.title }}">
+    {% endif %}
+    </div>
     <main>
-    {{ page.content }}
+    {{ page.content|safe }}
     </main>
 {% endblock %}
 
