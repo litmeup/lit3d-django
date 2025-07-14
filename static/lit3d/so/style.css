@@ -509,5 +509,10 @@ header img {
     }
 }
 
+.modal__wrapper {
+    height: auto;
+}
 
-
+.forFlex {
+    height: auto;
+}

@@ -22,13 +22,31 @@
 <meta property="og:image:secure_url" content="{% static 'img/og-img.jpg' %}">
 <link rel="preload" as="font" href="{% static 'fonts/druk-wide-medium.woff2' %}" type="font/woff2" crossorigin="anonymous">
 <link rel="preload" as="font" href="{% static 'fonts/montserrat-regular.woff2' %}" type="font/woff" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'css/main.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'lit3d/so/style.css' %}">
 <link rel="icon" href="{% static 'img/favicon/favicon.svg' %}">
 <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
 <link rel="manifest" href="{% static 'img/favicon/manifest.json' %}">
+<style>body.modal--locked {
+	overflow: hidden;
+  }
+  
+  .modal__inner {
+	height: 100%;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+  }
+ 
+  .forFlex {
+	height: auto !important;
+  }
+  
+  </style>
 </head>
 
 <body>
+	1111111111
+	1212
 	<div class="page__inner">
 		<div class="page__content">
 			<header class="page-header">
@@ -121,8 +139,8 @@
 										{% for project in projects %}
 											<div class="projects__col">
 												<div class="projects__col-inner">
-													<div class="p-card" data-modal-trigger='p-modal-15' data-slug="{{ project.slug }}">
-														<a href="projects/{{ project.slug }}/">
+													<div class="p-card" data-modal-trigger data-url="projects/{{ project.slug }}/">
+
 														<div class="p-card__wrapper">
 															<div class="p-card__inner">
 																<div class="p-card__img-wrap">
@@ -133,7 +151,7 @@
 																<h2 class="p-card__title">{{ project.title }}</h2>
 															</div>
 														</div>
-														</a>
+
 													</div>
 												</div>
 											</div>
@@ -232,136 +250,19 @@
 			<div class="page-loader__item"></div>
 		</div>
 	</div>
-	<div class="modal modal--project" data-modal="p-modal-15">
+	<div class="modal modal--project" data-modal="universal-modal">
 		<div class="modal__wrapper">
 			<div class="modal__container">
-				<div class="modal__row">
-					<div class="modal__col">
-						<div class="modal__inner">
-							<h2 class="modal__title">ПМЭФ — стенд правительства Москвы</h2>
-							<div class="content modal__content">
-								<p>Команда Lit3D приняла участие в создании экспозиционного стенда правительства Москвы на ПМЭФ 2024! Нами были предоставлены два промышленных робота KUKA СНГ с системой визуализации на базе кубических LED экранов, а также разработана их парная хореография для мультимедийного шоу.</p>
-								<p>Особо гордимся созданием в кратчайшие сроки специального софта, который стал связующим звеном медиаконтента и роботов, обеспечивая синхронность и динамику представления.</p>
-							</div>
-							<div class="slider-nav modal__slider-nav">
-								<div class="slider-nav__item">
-									<div class="slider-nav__btn slider-nav__btn--prev swiper-button-prev swiper-button-prev--alternate2 js-slider-btn-prev"></div>
-								</div>
-								<div class="slider-nav__item">
-									<div class="slider-nav__btn slider-nav__btn--next swiper-button-next swiper-button-next--alternate2 js-slider-btn-next"></div>
-								</div>
-							</div>
-						</div>
-					</div>
+				<div class="modal__inner" style="height: auto;">
 				</div>
 			</div>
-			<div class="modal__aside">
-				<div class="slider slider--modal modal__slider">
-					<div class="slider__instance swiper js-slider" data-slider-params="project">
-						<div class="slider__wrapper swiper-wrapper">
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-01--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-01--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-02--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-02--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-03--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-03--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-04--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-04--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-05--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-05--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-06--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-06--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-07--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-07--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-08--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-08--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-09--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-09--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-							<div class="slider__item swiper-slide">
-								<div class="m-img">
-									<div class="m-img__ratio">
-										<picture>
-											<img class="m-img__img" src="{% static 'img/PMEF/PMEF-m-img-10--xs.jpg' %}" srcset="{% static 'img/PMEF/PMEF-m-img-10--xs.jpg' %}" alt="">
-										</picture>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="slider__pagination swiper-pagination js-slider-pagination"></div>
-					</div>
-				</div>
-			</div>
-			<div class="modal__year">2024</div>
 			<button class="btn-close js-modal-close modal__btn-close" type="button">
 				<span class="v-hidden">Закрыть</span>
 			</button>
 		</div>
 	</div>
 
-	<script src="{% static 'js/main.min.js' %}"></script>
+	<script src="{% static 'js/main.min.js' %}?v=1.2.3"></script>
 </body>
 
 </html>

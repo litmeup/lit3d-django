@@ -1,11 +1,11 @@
-{% extends 'base_portfolio.html' %}
 
+<div class="forFlex">
 {% block content %}
 
     <div class="main">
-        <header>
-            <a href="#"><img src="/static/lit3d/so/image/Return.svg"></a>
-        </header>
+        <!--header>
+            <a href="/"><img src="/static/lit3d/so/image/Return.svg"></a>
+        </header-->
         <div class="event">
             <div class="event-date">
                 {{ page.date|date:"F Y" }}
@@ -39,5 +39,5 @@
     {{ page.content|safe }}
     </main>
 {% endblock %}
-
+</div>
 

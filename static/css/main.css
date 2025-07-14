@@ -2345,6 +2345,15 @@ html.lenis body {
   line-height: 20px;
 }
 
+.modal {
+  overflow: hidden;
+}
+
+.modal__inner {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
 .page-loader {
   display: -webkit-box;
   display: -ms-flexbox;
