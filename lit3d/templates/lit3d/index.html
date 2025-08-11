@@ -167,6 +167,36 @@
 						</div>
 					</div>
 				</section>
+				<div class="section-spacer section-spacer--projects" data-fade="in" data-camera-from="-1.8" data-camera-to="1" data-camera-distance="100"></div>
+				
+				<section class="section section--window section--slider section--team" id="team">
+					<div class="section__inner js-reveal-team">
+						<div class="slider slider--team">
+							<div class="slider__instance swiper js-slider" data-slider-params="team">
+								<div class="slider__wrapper swiper-wrapper">
+									{% for employee in employees %}
+									<div class="slider__item swiper-slide">
+										<div class="slider__t-card a-fade js-reveal-team">
+											<div class="slider__t-card-img-wrap">
+												<div class="slider__t-card-img-ratio">
+													<picture>
+														<img class="slider__t-card-img" src="{{ employee.photo }}" width="600" height="900" alt="{{ employee.name }}">
+													</picture>
+												</div>
+											</div>
+											<div class="slider__t-card-desc">
+												<h3 class="slider__t-card-name">{{ employee.name }}</h3>
+												<div class="slider__t-card-position">{{ employee.position }}</div>
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+								<div class="slider__pagination swiper-pagination swiper-pagination--alternate js-slider-pagination a-fade js-reveal-team"></div>
+							</div>
+						</div>
+					</div>
+				</section>
 				<div class="section-spacer section-spacer--team" data-fade="out" data-rotation="out" data-camera-from="1" data-camera-to="9" data-camera-distance="100"></div>
 				<section class="section section--window section--align_center section--contacts" id="contacts">
 					<div class="section__inner">
