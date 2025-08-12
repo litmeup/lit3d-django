@@ -10,15 +10,17 @@
             <div class="event-date">
                 {{ page.date|date:"F Y" }}
             </div>
-            <div class="event-title">
+            <div class="event-category">
                 <div>{{ page.category }}</div>
+            </div>
+            <div class="event-title">
                 <div>{{ page.title }}</div>
             </div>
             <div class="event-paragraphs1">
-                <p class="event-description">{{ page.short_description }}</p>
+                <p class="event-description">{{ page.short_description|safe }}</p>
             </div>
             <div class="event-paragraphs2">    
-                <p class="event-description">{{ page.full_description }}</p>
+                <p class="event-description">{{ page.full_description|safe }}</p>
             </div>
         </div>
     </div>
