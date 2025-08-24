@@ -64,7 +64,7 @@ header img {
 .event {
     padding-left: 12vw;
     margin-top: 14vh;
-    width: 60vw;
+    width: 75vw;
     height: 51.5vh;
     @media (max-width: 728px){
         width:  75vw;
@@ -91,7 +91,7 @@ header img {
 .event-description {
     font-family: var(--font-family);
     font-weight: 500;
-    font-size: 1vw;
+    font-size: 1.5vw;
     line-height: 140%;
     margin: 0;
     color: #fff;
@@ -114,7 +114,6 @@ header img {
 }
 
 .event-paragraphs1 {
-    width: 35vw;
     margin-top: 5.2vh;
     @media (max-width: 728px){
         width: 70vw;
@@ -124,10 +123,11 @@ header img {
 }
 .event-paragraphs2 {
     margin-top: 5vh;
-    width: 36.5vw;
     @media (max-width: 728px){
         width: 70vw;
     }
+    column-count: 2;
+    column-gap: 30px;
 }
 
 
