@@ -2350,8 +2350,9 @@ html.lenis body {
 }
 
 .modal__inner {
-  max-height: 80vh;
+  max-height: 100vh;
   overflow-y: auto;
+  padding-top: 0;
 }
 
 .page-loader {
