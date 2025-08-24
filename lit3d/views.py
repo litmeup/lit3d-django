@@ -20,5 +20,6 @@ def projects(request, slug):
         return HttpResponseNotFound()
     #return HttpResponse(project.content)
     return render(request, 'portfolio/page.html', {
-        'page': project
+        'page': project,
+        "slug": slug,
     })

@@ -38,6 +38,9 @@
     {% endif %}
     </div>
     <main>
+        <!-- DEBUG {{ page.slug }} -->
+        {% include "portfolio/_masonry_gallery.html" with slug=slug title=page.title %}
+
     {{ page.content|safe }}
     </main>
 {% endblock %}

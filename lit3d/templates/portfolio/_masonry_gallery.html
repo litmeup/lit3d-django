@@ -1,0 +1,29 @@
+{% load static gallery %}
+
+<!-- DEBUG slug: {{ slug }} -->
+{% project_image_range slug as images %}
+<!-- DEBUG images_len: {{ images|length }} -->
+
+<link rel="stylesheet" href="{% static 'vendor/masonry.css' %}">
+<div class="masonry" data-masonry='{"itemSelector":".masonry-item","gutter":16,"percentPosition":true}'>
+    {% project_image_range slug as images %}
+    {% for i in images %}
+    <figure class="masonry-item">
+      <img loading="lazy"
+           src="{% static 'projects/' %}{{ slug }}/{{ i }}.jpg"
+           alt="{{ title }} {{ i }}">
+    </figure>
+  {% empty %}
+    <p class="text-muted">Нет изображений.</p>
+  {% endfor %}
+</div>
+
+<script src="{% static 'vendor/masonry.pkgd.min.js' %}" defer></script>
+<style>
+    .masonry { column-gap: 16px; }
+    .masonry { column-count: 1; }
+    @media (min-width: 640px){ .masonry { column-count: 2; } }
+    @media (min-width: 1024px){ .masonry { column-count: 3; } }
+    .masonry-item { break-inside: avoid; margin: 0 0 16px; }
+    .masonry-item img { display: block; width: 100%; height: auto; }
+</style>
