@@ -2,7 +2,7 @@
 <div class="forFlex">
 {% block content %}
 
-    <div class="main">
+    <div class="main" style="background-image: url(/statis/projects/{{ slug }}/1.jpg);">
         <!--header>
             <a href="/"><img src="/static/lit3d/so/image/Return.svg"></a>
         </header-->
@@ -23,7 +23,7 @@
                 <p class="event-description">{{ page.full_description|safe }}</p>
             </div>
         </div>
-        <img src="{% static 'projects/' %}{{ slug }}/1.jpg" class="main-bg" alt="">
+        <img src="" class="main-bg" alt="">
     </div>
     <!--div class="large_group">
     {% if page.video %}
