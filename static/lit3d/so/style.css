@@ -53,9 +53,9 @@ header img {
     background-repeat: no-repeat;
     height: 100vh;
     background-size: cover;
-    margin-bottom: 8vh;
+    margin-bottom: 16px;
     @media (max-width: 728px){
-        margin-bottom: 5vh;
+        margin-bottom: 16px;
         background-position: 10%;
     }
 

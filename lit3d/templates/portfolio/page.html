@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <div class="large_group">
+    <!--div class="large_group">
     {% if page.video %}
     <video>
         <source
@@ -33,10 +33,9 @@
     </video>
     {% endif %}
     {% if page.main_image %}
-        <!--img src="/static/lit3d/so/image/2.1.png" alt="Крупное изображение"></p-->
         <img src="{{ page.large_image.url }}" alt="{{ page.title }}">
     {% endif %}
-    </div>
+    </div-->
     <main>
         <!-- DEBUG {{ page.slug }} -->
         {% include "portfolio/_masonry_gallery.html" with slug=slug title=page.title %}
