@@ -2712,7 +2712,7 @@ html.lenis body {
   }
 
   .modal__container {
-    width: calc(100% - 16px);
+
   }
 }
 
@@ -2744,7 +2744,7 @@ html.lenis body {
   }
 
   .modal__container {
-    width: calc(100% - 16px);
+
   }
 
   .modal__col {
